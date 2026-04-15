@@ -322,20 +322,33 @@
     .tablet-mockup {
       position: relative;
       width: 100%;
-      max-width: 380px;
+      max-width: 340px;
       margin: 0 auto;
-      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.8));
-      animation: float-tablet 5s ease-in-out infinite;
-      transition: transform 0.4s ease;
+      filter: drop-shadow(0 25px 50px rgba(0,0,0,0.8));
+      animation: float-tablet 6s ease-in-out infinite;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border-radius: 42px;
+      overflow: hidden;
+      border: 6px solid #1a1a1a;
+      box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
+      background: #000;
     }
     .tablet-mockup:hover {
-      transform: scale(1.03) rotate(-1deg);
+      transform: scale(1.05) translateY(-10px) rotate(1deg);
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.9));
     }
     .tablet-mockup img {
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 4px;
+      transform: scale(1.01); /* Slight overflow to hide edge artifacts */
+    }
+    .tablet-reflection {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+      pointer-events: none;
+      z-index: 2;
     }
     @keyframes float-tablet {
       0%, 100% { transform: translateY(0) rotate(0); }
@@ -578,6 +591,75 @@
       border-radius: 100px;
       margin-bottom: 10px;
     }
+    .single-bonus {
+      max-width: 600px;
+      margin: 48px auto 0;
+    }
+    .bonus-highlight {
+      background: linear-gradient(135deg, rgba(229,160,32,0.08) 0%, rgba(229,160,32,0.03) 100%);
+      border: 2px solid rgba(229,160,32,0.3);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .bonus-highlight::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    }
+    .bonus-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--ink);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .bonus-icon-large {
+      font-size: 4rem;
+      margin-bottom: 16px;
+    }
+    .bonus-highlight h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+    .bonus-highlight > p {
+      color: var(--text-2);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .bonus-features {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px 32px;
+    }
+    .bonus-features li {
+      color: var(--text-1);
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bonus-features li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: 900;
+    }
 
     /* ===== PRICE SECTION ===== */
     .price-section {
@@ -783,11 +865,14 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       section { padding: 60px 0; }
-      .hero { min-height: auto; padding: 100px 0 60px; }
-      .hero-road-img { display: none; }
-      .showcase-inner { grid-template-columns: 1fr; gap: 40px; }
-      .book-3d { order: -1; }
-      .book-3d-wrap { width: 200px; }
+      .hero { min-height: auto; padding: 80px 0 60px; text-align: center; }
+      .hero-container { flex-direction: column; gap: 20px; }
+      .hero-content { padding: 30px 20px; }
+      .hero-visual { width: 100%; justify-content: center; }
+      .hero-road-img { width: 100%; mask-image: none; -webkit-mask-image: none; }
+      .hero-cta-group { align-items: center; }
+      .showcase-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .showcase-list { text-align: left; max-width: 500px; margin: 28px auto 36px; }
       .for-whom-grid { grid-template-columns: 1fr; }
       .author-inner { grid-template-columns: 1fr; text-align: center; }
       .author-photo { margin: 0 auto; width: 160px; height: 160px; }
@@ -916,7 +1001,8 @@
     <div class="showcase-inner">
       <div class="reveal">
         <div class="tablet-mockup">
-          <img src="assets/mockup-tablet.jpg" alt="Ebook Primeira Moto Sem Errar" />
+          <div class="tablet-reflection"></div>
+          <img src="assets/mockup-tablet-cropped.jpg" alt="Ebook Primeira Moto Sem Errar" />
           <div class="tablet-glow"></div>
         </div>
       </div>
@@ -1162,29 +1248,23 @@
 <section class="bonus-section">
   <div class="container">
     <div class="text-center reveal">
-      <span class="section-label">Bônus incluídos</span>
-      <h2 class="section-title">Além do guia, você ganha <span class="gold">esses bônus</span></h2>
-      <p class="section-desc" style="margin:0 auto;">100% grátis para quem adquire o guia completo.</p>
+      <span class="section-label">Bônus exclusivo</span>
+      <h2 class="section-title">Você também ganha <span class="gold">este bônus</span></h2>
+      <p class="section-desc" style="margin:0 auto;">Incluído automaticamente ao comprar o guia.</p>
     </div>
 
-    <div class="bonus-grid">
-      <div class="bonus-card reveal reveal-delay-1">
-        <div class="bonus-tag">Bônus #1</div>
-        <div class="bonus-icon">📋</div>
-        <h3>Checklist de Compra em PDF</h3>
-        <p>Lista prática para levar na hora de avaliar qualquer moto usada. <a href="ebook-primeira-moto.pdf" style="color:var(--gold);text-decoration:underline;">Baixar Agora</a></p>
-      </div>
-      <div class="bonus-card reveal reveal-delay-2">
-        <div class="bonus-tag">Bônus #2</div>
-        <div class="bonus-icon">🏍️</div>
-        <h3>Lista de Motos para Iniciantes 2026</h3>
-        <p>As melhores opções por faixa de preço e uso. Curadas especialmente para quem está começando.</p>
-      </div>
-      <div class="bonus-card reveal reveal-delay-3">
-        <div class="bonus-tag">Bônus #3</div>
-        <div class="bonus-icon">💰</div>
-        <h3>Calculadora de Custo Mensal</h3>
-        <p>Simule o custo real mensal da sua moto antes de comprar e chegue preparado para as despesas.</p>
+    <div class="single-bonus">
+      <div class="bonus-highlight reveal reveal-delay-1">
+        <div class="bonus-badge">🎁 BÔNUS EXCLUSIVO</div>
+        <div class="bonus-icon-large">🏍️</div>
+        <h3>Lista das Melhores Motos para Iniciantes 2026</h3>
+        <p>Uma curadoria especial com as melhores opções de moto para quem está começando. Consideramos diferentes预算, cenários de uso e níveis de experiência — tudo organizado para você tomar a melhor decisão.</p>
+        <ul class="bonus-features">
+          <li>✓ Motos até R$ 15.000</li>
+          <li>✓ Motas entre R$ 15.000 e R$ 25.000</li>
+          <li>✓ Opções premium até R$ 40.000</li>
+          <li>✓ Recomendação por tipo de uso</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -1297,8 +1377,6 @@
       <ul class="price-includes">
         <li><span class="chk">✦</span> Guia completo "Primeira Moto Sem Errar" (66 páginas)</li>
         <li><span class="chk">✦</span> Capítulo Bônus: Lista de motos para iniciantes 2026</li>
-        <li><span class="chk">✦</span> Checklist de compra imprimível em PDF</li>
-        <li><span class="chk">✦</span> Calculadora de custo mensal real</li>
         <li><span class="chk">✦</span> Acesso em qualquer dispositivo (celular, tablet, PC)</li>
         <li><span class="chk">✦</span> Atualizações gratuitas para sempre</li>
       </ul>
@@ -1361,7 +1439,7 @@
 <div class="sticky-cta" id="sticky-cta">
   <div class="sticky-text">
     <div><strong>Primeira Moto Sem Errar</strong></div>
-    <div>Guia completo + 3 bônus</div>
+    <div>Guia completo + bônus</div>
   </div>
   <div class="sticky-price">R$ 27</div>
   <a href="#preco" class="btn-cta" id="sticky-btn">Comprar agora →</a>
