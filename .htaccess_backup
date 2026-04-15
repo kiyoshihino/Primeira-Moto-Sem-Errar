@@ -1,0 +1,4 @@
+# Hostinger Minimal Configuration
+# Se o site ainda der 403, delete este arquivo .htaccess temporariamente
+
+DirectoryIndex index.php index.html

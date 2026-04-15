@@ -115,39 +115,61 @@
 
     /* ===== HERO ===== */
     .hero {
-      position: relative;
-      min-height: 100vh;
       display: flex;
       align-items: center;
-      background: radial-gradient(ellipse at 60% 40%, #1a2a4a 0%, var(--ink) 70%);
+      background-color: var(--ink);
+      background-image: radial-gradient(circle at 70% 30%, var(--blue-mid) 0%, var(--ink) 70%);
       overflow: hidden;
-      padding: 80px 0 60px;
+      padding: 100px 0 60px;
+      min-height: 95vh;
+      position: relative;
     }
-    .hero::before {
+    .hero::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E5A020' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      bottom: 0; left: 0; width: 100%; height: 200px;
+      background: linear-gradient(to top, var(--ink), transparent);
+      z-index: 3;
     }
-    .hero-road {
-      position: absolute;
-      bottom: 0; right: 0;
-      width: 55%;
-      height: 100%;
-      background: linear-gradient(to right, var(--ink) 0%, transparent 30%),
-                  linear-gradient(to top, var(--ink) 0%, transparent 20%);
-      z-index: 1;
+    .hero-container {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      width: 100%;
+      z-index: 5;
+    }
+    .hero-content {
+      flex: 1.2;
+      position: relative;
+      z-index: 10;
+      padding: 40px;
+      background: rgba(8, 9, 13, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(229, 160, 32, 0.1);
+    }
+    .hero-visual {
+      flex: 1;
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
     .hero-road-img {
-      position: absolute;
-      bottom: 0; right: 0;
-      width: 55%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.15;
-      filter: saturate(0) brightness(0.5);
-      background-image: url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2070&auto=format&fit=crop'); /* Imagem de estrada premium */
-      background-size: cover;
+      width: 140%;
+      height: auto;
+      object-fit: contain;
+      opacity: 1;
+      filter: drop-shadow(0 0 60px rgba(0,0,0,0.8)) saturate(1.1);
+      mask-image: linear-gradient(to left, black 70%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 70%, transparent 100%);
+      animation: float-hero 6s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes float-hero {
+      0%, 100% { transform: translateY(0) scale(1.02) rotate(0); }
+      50% { transform: translateY(-15px) scale(1.05) rotate(1deg); }
     }
     .hero-glow {
       position: absolute;
@@ -800,39 +822,46 @@
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="top">
   <div class="hero-glow"></div>
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-badge reveal">O guia definitivo para motociclistas iniciantes</div>
+  <div class="container-lg">
+    <div class="hero-container">
+      
+      <div class="hero-content">
+        <div class="hero-badge reveal">🏁 O guia definitivo para motociclistas iniciantes</div>
 
-      <h1 class="hero-title reveal reveal-delay-1">
-        Compre sua<br />
-        <span class="accent">primeira moto</span><br />
-        sem errar.
-      </h1>
+        <h1 class="hero-title reveal reveal-delay-1">
+          Compre sua<br />
+          <span class="accent">primeira moto</span><br />
+          sem errar.
+        </h1>
 
-      <p class="hero-subtitle reveal reveal-delay-2">
-        Cada erro na escolha da sua primeira moto pode te custar <strong>R$ 3.000, R$ 5.000 ou mais.</strong> Este guia existe para você não desperdiçar dinheiro e realizar esse sonho do jeito certo.
-      </p>
-
-      <div class="hero-social-proof reveal reveal-delay-3">
-        <div class="hero-avatars">
-          <span>🏍️</span>
-          <span>🪖</span>
-          <span>🔧</span>
-          <span>⛽</span>
-        </div>
-        <p class="hero-social-text">Mais de <strong>1.200 leitores</strong> já tomaram a decisão certa</p>
-      </div>
-
-      <div class="hero-cta-group reveal reveal-delay-4">
-        <a href="#preco" class="btn-cta btn-cta-lg" id="hero-cta">
-          🏁 Quero minha primeira moto sem errar
-        </a>
-        <p class="hero-guarantee">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-          Garantia de 7 dias · Acesso imediato · 100% digital
+        <p class="hero-subtitle reveal reveal-delay-2">
+          Cada erro na escolha da sua primeira moto pode te custar <strong>R$ 3.000, R$ 5.000 ou mais.</strong> Este guia existe para você não desperdiçar dinheiro e realizar esse sonho do jeito certo.
         </p>
+
+        <div class="hero-social-proof reveal reveal-delay-3">
+          <div class="hero-avatars">
+            <span>👤</span>
+            <span>👤</span>
+            <span>👤</span>
+          </div>
+          <p class="hero-social-text">Mais de <strong>1.200 leitores</strong> já tomaram a decisão certa</p>
+        </div>
+
+        <div class="hero-cta-group reveal reveal-delay-4">
+          <a href="#preco" class="btn-cta btn-cta-lg" id="hero-cta">
+            Quero minha primeira moto sem errar
+          </a>
+          <p class="hero-guarantee">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            Garantia de 7 dias · Acesso imediato
+          </p>
+        </div>
       </div>
+
+      <div class="hero-visual reveal">
+        <img src="assets/hero-motorcycle.jpg" alt="Premium Motorcycle" class="hero-road-img">
+      </div>
+
     </div>
   </div>
 </section>
