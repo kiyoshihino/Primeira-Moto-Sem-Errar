@@ -1,0 +1,15 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Agent files
+.agent/
+.gemini/
+brain/
+implementation_plan.md
+task.md
+walkthrough.md
+github_plan.md
+
+# Logs
+*.log
